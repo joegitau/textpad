@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 
 @Component({
-  selector: 'app-note',
-  templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss']
+  selector: "app-note",
+  templateUrl: "./note.component.html",
+  styleUrls: ["./note.component.scss"]
 })
 export class NoteComponent implements OnInit {
+  @ViewChild("truncator") truncator: ElementRef<HTMLElement>;
+  @ViewChild("noteText") noteText: ElementRef<HTMLElement>;
 
-  constructor() { }
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
-  }
+    let style = window.getComputedStyle(this.noteText.nativeElement, null);
+    let viewableHeight = parseInt(style.getPropertyValue("height"), 10);
 
+    if (this.noteText.nativeElement.scrollHeight > viewableHeight) {
+      this.renderer.setStyle(this.truncator.nativeElement, "display", "block");
+    } else {
+      this.renderer.setStyle(this.truncator.nativeElement, "display", "none");
+    }
+  }
 }
