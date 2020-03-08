@@ -18,9 +18,7 @@
 </div>
 <hr class="my-3" />
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <app-note [noteTitle]="noteTitle" [noteBody]="noteBody"></app-note>
-    <app-note></app-note>
-    <app-note></app-note>
+  <div class="col-md-8 offset-md-2" *ngFor="let note of notes">
+    <app-note [noteTitle]="note.title" [noteBody]="note.body"></app-note>
   </div>
 </div>

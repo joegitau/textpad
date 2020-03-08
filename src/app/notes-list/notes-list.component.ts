@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+
+import { INote } from "../shared/note.module";
+import { DataService } from "../data.service";
 
 @Component({
   selector: "app-notes-list",
@@ -6,10 +10,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./notes-list.component.scss"]
 })
 export class NotesListComponent implements OnInit {
-  noteTitle = "Some awesome title";
-  noteBody = "Go home, think and dont come out till something dope hits u!";
+  notes: INote[];
 
-  constructor() {}
+  constructor(private dataService: DataService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.notes = this.dataService.getAll();
+    this.router.navigate(["/"]);
+  }
 }
