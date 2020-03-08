@@ -8,17 +8,57 @@
       </div>
       <div class="card card-plain">
         <div class="card-body">
-          <form>
+          <form novalidate [formGroup]="noteForm" (ngSubmit)="createNote()">
             <div class="mb-3">
               <label for="noteTitle">Title</label>
-              <input type="text" class="form-control" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="noteTitle"
+                [ngClass]="{
+                  'is-invalid':
+                    (noteForm.get('noteTitle').touched ||
+                      noteForm.get('noteTitle').dirty) &&
+                    !noteForm.get('noteTitle').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="noteForm.get('noteTitle').errors?.required"
+                  >Title is required</span
+                >
+                <span *ngIf="noteForm.get('noteTitle').errors?.minlength"
+                  >Title must be longer than 3 characters</span
+                >
+              </div>
             </div>
             <div class="mb-3">
               <label for="noteBody">Description</label>
-              <textarea name="noteBody" id="" class="form-control"></textarea>
+              <textarea
+                name="noteBody"
+                id=""
+                class="form-control"
+                formControlName="noteBody"
+                [ngClass]="{
+                  'is-invalid':
+                    (noteForm.get('noteBody').touched ||
+                      noteForm.get('noteBody').dirty) &&
+                    !noteForm.get('noteBody').valid
+                }"
+              ></textarea>
+              <div class="invalid-feedback">
+                <span *ngIf="noteForm.get('noteBody').errors?.required"
+                  >Please write something dope</span
+                >
+              </div>
             </div>
             <div class="mt-3">
-              <button class="btn btn-success" type="submit">Create</button>
+              <button
+                class="btn btn-success"
+                type="submit"
+                [disabled]="!noteForm.valid"
+              >
+                Create
+              </button>
               <button class="btn btn-secondary ml-2" type="submit">
                 Cancel
               </button>
