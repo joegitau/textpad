@@ -14,6 +14,10 @@ const routes: Routes = [
         component: NotesListComponent
       },
       {
+        path: "create",
+        component: NoteDetailsComponent
+      },
+      {
         path: ":id",
         component: NoteDetailsComponent
       }

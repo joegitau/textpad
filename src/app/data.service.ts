@@ -14,6 +14,10 @@ export class DataService {
     return this.notes;
   }
 
+  get(id: number) {
+    return this.notes[id];
+  }
+
   getId(note: INote) {
     return this.notes.indexOf(note);
   }

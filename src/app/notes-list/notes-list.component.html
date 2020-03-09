@@ -12,7 +12,7 @@
 </div>
 <hr class="my-3">
 <div class="row">
-  <div class="col-md-8 offset-md-2" *ngFor='let note of notes'>
-    <app-note [title]='note.title' [body]='note.body'></app-note>
+  <div class="col-md-8 offset-md-2" *ngFor='let note of notes; index as i'>
+    <app-note [title]='note.title' [body]='note.body' [routerLink]='i'></app-note>
   </div>
 </div>
