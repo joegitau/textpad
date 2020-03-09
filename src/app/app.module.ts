@@ -1,12 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NotesListComponent } from './notes-list/notes-list.component';
-import { BaseComponent } from './base/base.component';
-import { NoteComponent } from './note/note.component';
-import { NoteDetailsComponent } from './note-details/note-details.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { NotesListComponent } from "./notes-list/notes-list.component";
+import { BaseComponent } from "./base/base.component";
+import { NoteComponent } from "./note/note.component";
+import { NoteDetailsComponent } from "./note-details/note-details.component";
 
 @NgModule({
   declarations: [
@@ -16,11 +17,8 @@ import { NoteDetailsComponent } from './note-details/note-details.component';
     NoteComponent,
     NoteDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
