@@ -4,7 +4,8 @@ import {
   AfterViewInit,
   Renderer2,
   ViewChild,
-  ElementRef
+  ElementRef,
+  Input
 } from "@angular/core";
 
 @Component({
@@ -13,6 +14,9 @@ import {
   styleUrls: ["./note.component.scss"]
 })
 export class NoteComponent implements AfterViewInit {
+  @Input() title: string;
+  @Input() body: string;
+
   @ViewChild("truncator") truncator: ElementRef<HTMLElement>;
   @ViewChild("noteText") noteText: ElementRef<HTMLElement>;
 

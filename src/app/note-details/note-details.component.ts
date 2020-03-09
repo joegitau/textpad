@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import { INote } from "../shared/note.model";
+import { DataService } from "../data.service";
 
 @Component({
   selector: "app-note-details",
@@ -12,7 +14,11 @@ export class NoteDetailsComponent implements OnInit {
   noteForm: FormGroup;
   note: INote;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.noteForm = this.fb.group({
@@ -22,7 +28,10 @@ export class NoteDetailsComponent implements OnInit {
   }
 
   createNote() {
-    console.log(this.noteForm);
-    console.log("Saved", JSON.stringify(this.noteForm.value));
+    this.dataService.create(this.noteForm.value);
+    this.router.navigateByUrl("/");
+    // this.router.navigate(['/'])
+    // console.log(this.noteForm);
+    // console.log("Saved", JSON.stringify(this.noteForm.value));
   }
 }
