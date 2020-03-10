@@ -14,7 +14,7 @@ export class NoteDetailsComponent implements OnInit {
   noteForm: FormGroup;
   note: INote;
   noteId: number;
-  newNote: boolean;
+  isNewNote: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -24,21 +24,28 @@ export class NoteDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // is it new note or an existing?
-    // this.route.paramMap.subscribe( (params: Params) => {
-    //   const id = +params.get('id');
-    //   this.dataService.get(id);
-    // });
-
-    this.route.params.subscribe((params: Params) => {
-      if (params.id) {
-        this.note = this.dataService.get(params.id);
-        this.noteId = params.id;
-        this.newNote = false;
+    // is it a new note or an existing?
+    this.route.paramMap.subscribe((params: Params) => {
+      const id = +params.get("id");
+      console.log(id);
+      if (id) {
+        this.note = this.dataService.get(id);
+        this.noteId = id;
+        this.isNewNote = false;
       } else {
-        this.newNote = true;
+        this.isNewNote = true;
       }
     });
+
+    // this.route.params.subscribe((params: Params) => {
+    //   if (params.id) {
+    //     this.note = this.dataService.get(params.id);
+    //     this.noteId = params.id;
+    //     this.isNewNote = false;
+    //   } else {
+    //     this.isNewNote = true;
+    //   }
+    // });
 
     this.noteForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(3)]],
@@ -47,7 +54,7 @@ export class NoteDetailsComponent implements OnInit {
   }
 
   createNote() {
-    if (this.newNote) {
+    if (this.isNewNote) {
       this.dataService.create(this.noteForm.value);
       this.router.navigateByUrl("/");
     } else {
