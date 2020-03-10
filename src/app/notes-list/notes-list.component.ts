@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { INote } from "../shared/note.model";
+import { Note } from "../shared/note.model";
 import { DataService } from "../data.service";
 
 @Component({
@@ -8,7 +8,7 @@ import { DataService } from "../data.service";
   styleUrls: ["./notes-list.component.scss"]
 })
 export class NotesListComponent implements OnInit {
-  notes: INote[];
+  notes: Note[];
 
   constructor(private dataService: DataService) {}
 

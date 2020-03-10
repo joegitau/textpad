@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 
-import { INote } from "./shared/note.model";
+import { Note } from "./shared/note.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class DataService {
-  notes: INote[] = [];
+  notes: Note[] = [];
 
   constructor() {}
 
@@ -18,11 +18,11 @@ export class DataService {
     return this.notes[id];
   }
 
-  getId(note: INote) {
+  getId(note: Note) {
     return this.notes.indexOf(note);
   }
 
-  create(note: INote) {
+  create(note: Note) {
     const notesLength = this.notes.push(note);
     const index = notesLength - 1;
     return index;

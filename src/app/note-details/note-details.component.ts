@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { INote } from "../shared/note.model";
+import { Note } from "../shared/note.model";
 import { DataService } from "../data.service";
 
 @Component({
@@ -12,7 +12,7 @@ import { DataService } from "../data.service";
 })
 export class NoteDetailsComponent implements OnInit {
   noteForm: FormGroup;
-  note: INote;
+  note: Note;
   noteId: number;
   isNewNote: boolean;
 
@@ -26,8 +26,8 @@ export class NoteDetailsComponent implements OnInit {
   ngOnInit(): void {
     // is it a new note or an existing?
     this.route.paramMap.subscribe((params: Params) => {
+      this.note = new Note();
       const id = +params.get("id");
-      console.log(id);
       if (id) {
         this.note = this.dataService.get(id);
         this.noteId = id;
@@ -36,16 +36,6 @@ export class NoteDetailsComponent implements OnInit {
         this.isNewNote = true;
       }
     });
-
-    // this.route.params.subscribe((params: Params) => {
-    //   if (params.id) {
-    //     this.note = this.dataService.get(params.id);
-    //     this.noteId = params.id;
-    //     this.isNewNote = false;
-    //   } else {
-    //     this.isNewNote = true;
-    //   }
-    // });
 
     this.noteForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(3)]],
@@ -56,7 +46,6 @@ export class NoteDetailsComponent implements OnInit {
   createNote() {
     if (this.isNewNote) {
       this.dataService.create(this.noteForm.value);
-      this.router.navigateByUrl("/");
     } else {
       this.dataService.update(
         this.noteId,
@@ -65,6 +54,7 @@ export class NoteDetailsComponent implements OnInit {
       );
       this.router.navigateByUrl("/");
     }
+    this.router.navigateByUrl("/");
   }
 
   discard() {
